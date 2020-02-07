@@ -20,20 +20,43 @@ public class Evento implements Serializable {
 	private Integer id;
 	@NotEmpty(message = "Descrição não pode ser vazia!")
 	private String descricao;
-	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private Date dataInicio;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private Date dataTermino;
+	@JsonFormat(pattern = "HH:mm")
 	private Date horarioInicio;
-	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	@JsonFormat(pattern = "HH:mm")
 	private Date horarioTermino;
 
 	public Evento() {
 	}
 
-	public Evento(Integer id, String descricao, Date horarioInicio, Date horarioTermino) {
+	public Evento(Integer id, @NotEmpty(message = "Descrição não pode ser vazia!") String descricao, Date dataInicio,
+			Date dataTermino, Date horarioInicio, Date horarioTermino) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
+		this.dataInicio = dataInicio;
+		this.dataTermino = dataTermino;
 		this.horarioInicio = horarioInicio;
 		this.horarioTermino = horarioTermino;
+	}
+
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public Date getDataTermino() {
+		return dataTermino;
+	}
+
+	public void setDataTermino(Date dataTermino) {
+		this.dataTermino = dataTermino;
 	}
 
 	public Integer getId() {
