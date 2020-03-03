@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.leonardodonato.calendarioeventos.domain.Usuario;
 import com.leonardodonato.calendarioeventos.repositories.UsuarioRepository;
-import com.leonardodonato.calendarioeventos.security.UserSescurity;
+import com.leonardodonato.calendarioeventos.security.UserSecurity;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException(email);
 		}
 		
-		return new UserSescurity(cli.getId(), cli.getEmail(), cli.getSenha(), cli.getPerfis());
+		return new UserSecurity(cli.getId(), cli.getEmail(), cli.getSenha(), cli.getPerfis());
 	}
 
 }

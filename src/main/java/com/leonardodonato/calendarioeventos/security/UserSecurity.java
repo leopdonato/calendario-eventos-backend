@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.leonardodonato.calendarioeventos.domain.enums.Perfil;
 
-public class UserSescurity implements UserDetails { 
+public class UserSecurity implements UserDetails { 
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
@@ -18,11 +18,11 @@ public class UserSescurity implements UserDetails {
 	private String senha;
 	private Collection<? extends GrantedAuthority> authorities;
 	
-	public UserSescurity() {
+	public UserSecurity() {
 		
 	}
 	
-	public UserSescurity(Integer id, String email, String senha, Set<Perfil> perfis) {
+	public UserSecurity(Integer id, String email, String senha, Set<Perfil> perfis) {
 		super();
 		this.id = id;
 		this.email = email;
