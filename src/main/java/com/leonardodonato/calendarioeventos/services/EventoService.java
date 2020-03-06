@@ -10,7 +10,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.leonardodonato.calendarioeventos.domain.Evento;
+import com.leonardodonato.calendarioeventos.domain.Usuario;
 import com.leonardodonato.calendarioeventos.repositories.EventoRepository;
+import com.leonardodonato.calendarioeventos.security.UserSecurity;
 import com.leonardodonato.calendarioeventos.services.exceptions.DataIntegrityException;
 import com.leonardodonato.calendarioeventos.services.exceptions.ObjectNotFoundException;
 
@@ -19,6 +21,8 @@ public class EventoService {
 
 	@Autowired
 	private EventoRepository repo;
+	@Autowired
+	private UserService userService;
 
 	public Evento find(Integer id) {
 		Optional<Evento> obj = repo.findById(id);
@@ -27,13 +31,17 @@ public class EventoService {
 
 	@Transactional
 	public Evento insert(Evento obj) {
+		UserSecurity userSecurity = UserSecurityService.authenticated();
+		Usuario user = userService.find(userSecurity.getId());
 		obj.setId(null);
+		obj.setUsuario(user);
 		obj = repo.save(obj);
 		return obj;
 	}
 
 	public Evento update(Evento obj) {
-		find(obj.getId());
+		Evento evento = find(obj.getId());
+		obj.setUsuario(evento.getUsuario());
 		obj = repo.save(obj);
 		return obj;
 	}
@@ -48,6 +56,8 @@ public class EventoService {
 	}
 
 	public List<Evento> findAll() {
-		return repo.findAll();
+		UserSecurity userSecurity = UserSecurityService.authenticated();
+		Usuario user = userService.find(userSecurity.getId());
+		return repo.findByUsuario(user);
 	}
 }

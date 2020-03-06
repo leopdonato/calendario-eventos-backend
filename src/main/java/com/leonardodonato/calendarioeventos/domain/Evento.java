@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -28,6 +30,9 @@ public class Evento implements Serializable {
 	private Date horarioInicio;
 	@JsonFormat(pattern = "HH:mm")
 	private Date horarioTermino;
+	@ManyToOne
+	@JoinColumn(name="usuario_id")
+	private Usuario usuario;
 
 	public Evento() {
 	}
@@ -89,6 +94,14 @@ public class Evento implements Serializable {
 
 	public void setHorarioTermino(Date horarioTermino) {
 		this.horarioTermino = horarioTermino;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override
